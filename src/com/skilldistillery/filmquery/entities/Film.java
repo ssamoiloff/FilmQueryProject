@@ -14,6 +14,7 @@ public class Film {
 	private double replacementCost;
 	private String rating;
 	private String specialFeatures;
+	private String language;
 	List<Actor> actors;
 	
 	public Film() {}
@@ -106,6 +107,12 @@ public class Film {
 	}
 	public void setActors(List<Actor> actors) {
 		this.actors = actors;
+	}
+	public String getLanguage() {
+		return language;
+	}
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 	
 	@Override

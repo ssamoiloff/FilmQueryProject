@@ -32,6 +32,7 @@ public class UserInterface {
 		sb.append("Title:\t\t" + film.getTitle() + "\n");
 		sb.append("Year:\t\t" + film.getReleaseYear() + "\n");
 		sb.append("Rating:\t\t" + film.getRating() + "\n");
+		sb.append("Language:\t" + film.getLanguage() + "\n");
 		sb.append("Description:\t" + film.getDescription() + "\n");
 		System.out.println(sb);
 	}
