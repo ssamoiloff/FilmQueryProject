@@ -1,5 +1,6 @@
 package com.skilldistillery.filmquery.app;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.skilldistillery.filmquery.entities.Film;
@@ -33,5 +34,11 @@ public class UserInterface {
 		sb.append("Rating:\t\t" + film.getRating() + "\n");
 		sb.append("Description:\t" + film.getDescription() + "\n");
 		System.out.println(sb);
+	}
+	
+	public void printFilmResults(List<Film> results) {
+		for (Film film : results) {
+			printFilmInfo(film);
+		}
 	}
 }

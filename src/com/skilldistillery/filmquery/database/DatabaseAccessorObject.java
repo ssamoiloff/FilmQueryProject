@@ -12,8 +12,8 @@ import com.skilldistillery.filmquery.entities.Film;
 
 public class DatabaseAccessorObject implements DatabaseAccessor {
 	private static String url = "jdbc:mysql://localhost:3306/sdvid?useSSL=false";
-	private static String user = "student";
-	private static String pass = "student";
+	private String user = "student";
+	private String pass = "student";
 
 	static {
 		try {
@@ -28,7 +28,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		Film film = null;
 		try {
 			Connection conn = DriverManager.getConnection(url, user, pass);
-			String title = "";
 			String sql = "SELECT id, title, description, release_year, language_id, rental_duration, rental_rate,"
 					+ "length, replacement_cost, rating, special_features FROM film WHERE film.id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -62,11 +61,47 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	}
 
 	@Override
+	public List<Film> findFilmByKeyword(String keyword) {
+		List<Film> results = new ArrayList<>();
+		try {
+			Connection conn = DriverManager.getConnection(url, user, pass);
+			String sql = "SELECT * FROM film WHERE film.title LIKE ? OR film.description like ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, "%"+keyword+"%");
+			stmt.setString(2, "%"+keyword+"%");
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				Film film = new Film();
+				film.setId(rs.getInt(1));
+				film.setTitle(rs.getString(2));
+				film.setDescription(rs.getString(3));
+				film.setReleaseYear(rs.getInt(4));
+				film.setLanguageId(rs.getInt(5));
+				film.setRentalDuration(rs.getInt(6));
+				film.setRentalRate(rs.getDouble(7));
+				film.setLength(rs.getInt(8));
+				film.setReplacementCost(rs.getDouble(9));
+				film.setRating(rs.getString(10));
+				film.setSpecialFeatures(rs.getString(11));
+				film.setActors(findActorsByFilmId(rs.getInt(1)));
+				results.add(film);
+			}
+			rs.close();
+			stmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return results;
+	}
+
+	@Override
 	public Actor findActorById(int actorId) {
 		Actor actor = null;
 		try {
 			Connection conn = DriverManager.getConnection(url, user, pass);
-			String actorInfo = "";
 			String sql = "SELECT actor.id, actor.first_name, actor.last_name FROM actor WHERE actor.id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, actorId);
