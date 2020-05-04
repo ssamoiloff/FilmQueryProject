@@ -46,11 +46,13 @@ public class FilmQueryApp {
 				break;
 			default:
 				System.out.println("\nPlease enter a valid menu option!\n");
+				input.nextLine();
 			}
 		} while (option != 3);
 	}
 
 	public void option1() {
+		input.nextLine();
 		Film film = null;
 		System.out.print("\nEnter film ID: ");
 		while (!input.hasNextInt()) {
