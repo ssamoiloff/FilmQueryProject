@@ -52,10 +52,10 @@ public class UserInterface {
 		sb.append("Rating:\t\t" + film.getRating() + "\n");
 		sb.append("Language ID:\t" + film.getLanguageId() + "\n");
 		sb.append("Language:\t" + film.getLanguage() + "\n");
-		sb.append("Length:\t\t" + film.getLength() + "\n");
-		sb.append("Rental Dur:\t" + film.getRentalDuration() + "\n");
-		sb.append("Rental Rate\t" + film.getRentalRate() + "\n");
-		sb.append("Rep Cost:\t" + film.getReplacementCost() + "\n");
+		sb.append("Length:\t\t" + film.getLength() + " min\n");
+		sb.append("Rental Dur:\t" + film.getRentalDuration() + " days\n");
+		sb.append("Rental Rate\t$" + film.getRentalRate() + "\n");
+		sb.append("Rep Cost:\t$" + film.getReplacementCost() + "\n");
 		sb.append("Description:\t" + film.getDescription() + "\n");
 		sb.append("Special Feat:\t" + film.getSpecialFeatures() + "\n");
 		System.out.println(sb);
