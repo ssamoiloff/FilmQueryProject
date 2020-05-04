@@ -26,7 +26,7 @@ public class FilmQueryApp {
 
 	public void menuLogic() {
 		int option = 0;
-			do {
+		do {
 			ui.printMenu();
 			while (!input.hasNextInt()) {
 				System.out.println("\nPlease enter a valid menu option!\n");
@@ -51,6 +51,33 @@ public class FilmQueryApp {
 		} while (option != 3);
 	}
 
+	public void subMenuLogic(Film film) {
+		input.nextLine();
+		int option = 0;
+		do {
+			ui.printSubMenu();
+			while (!input.hasNextInt()) {
+				System.out.print("\nPlease enter a valid menu option!\n");
+				ui.printSubMenu();
+				input.nextLine();
+			}
+			option = input.nextInt();
+			switch (option) {
+			case 1:
+				System.out.println();
+				ui.printFilmInfoFull(film);
+				break;
+			case 2:
+				System.out.println();
+				return;
+			default:
+				System.out.println("\nPlease enter a valid menu option!\n");
+				input.nextLine();
+			}
+
+		} while (option != 2);
+	}
+	
 	public void option1() {
 		input.nextLine();
 		Film film = null;
@@ -67,6 +94,7 @@ public class FilmQueryApp {
 			} else {
 				System.out.println();
 				ui.printFilmInfo(film);
+				subMenuLogic(film);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -82,7 +110,7 @@ public class FilmQueryApp {
 		try {
 			results = db.findFilmByKeyword(key);
 			if (results.isEmpty()) {
-				System.out.println("\nFilm not found!\n");
+				System.out.println("\nNo films found!\n");
 			} else {
 				System.out.println();
 				ui.printFilmResults(results);
